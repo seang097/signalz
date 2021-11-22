@@ -53,7 +53,7 @@ def derfunc(t, x, rr, sfint, ti, ai, bi):
     zbase = 0.005 * np.sin(2 * np.pi * fresp * t)
     dx1dt = a0*x[0] - w0*x[1]
     dx2dt = a0*x[1] + w0*x[0]
-    dti = rem(ta - ti, 2. * np.pi) 
+    dti = (ta - ti) % (2. * np.pi) 
     dx3dt = - np.sum(ai * dti * np.exp(-0.5*(dti / bi)**2)) - (x[2] - zbase)
     return np.array([dx1dt, dx2dt, dx3dt])
 
@@ -114,8 +114,8 @@ def annotate_peaks(x, thetap, sfecg):
                 correction = extrema[i](surrounding)
                 ind[j-3+correction] = i+1
     return ind
-   
-def ecgsyn(sfecg=256, n=256, hrmean=60., hrstd=1,
+
+ def ecgsyn(sfecg=256, n=256, hrmean=60., hrstd=1,
         lfhfratio=0.5, sfint=512, ti=[-70, -15, 0, 15, 100],
         ai=[1.2, -5, 30, -7.5, 0.75], bi=[0.25, 0.1, 0.1, 0.1, 0.4]):
     """
