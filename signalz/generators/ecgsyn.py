@@ -33,8 +33,11 @@ Function Documentation
 """
 import numpy as np
 
+from numba import jit
+
 from signalz.misc import check_type_or_raise, ode45, rem
 
+@jit
 def derfunc(t, x, rr, sfint, ti, ai, bi):
     """
     Derivations of the ECG function.
